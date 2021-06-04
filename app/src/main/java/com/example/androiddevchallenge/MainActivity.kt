@@ -14,60 +14,37 @@ import androidx.compose.material.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.ui.Drawer
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    val context: Context = applicationContext
-    setContent {
-      MyTheme {
-        MyScreenContent(context)
-      }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val context: Context = applicationContext
+        setContent {
+            MyTheme {
+                MyScreenContent(context)
+            }
+        }
     }
-  }
 }
 
 @Composable
 fun MyScreenContent(context: Context) {
-  Column(modifier = Modifier.fillMaxHeight()) {
-    ModalDrawerSample()
-  }
+    Column(modifier = Modifier.fillMaxHeight()) {
+        Drawer()
+    }
 }
 
+
+@Preview
 @Composable
-fun ModalDrawerSample() {
-  val drawerState = rememberDrawerState(DrawerValue.Closed)
-  val scope = rememberCoroutineScope()
-
-  ModalDrawer(
-    drawerState = drawerState,
-    drawerContent = {
-      Column {
-        Text("Text in Drawer")
-        Button(onClick = {
-          scope.launch {
-            drawerState.close()
-          }
-        }) {
-          Text("Close Drawer")
+fun Show() {
+    MyTheme {
+        Column(modifier = Modifier.fillMaxHeight()) {
+            Drawer()
         }
-      }
-    },
-    content = {
-      Column {
-        Text("Text in Bodycontext")
-        Button(onClick = {
-
-          scope.launch {
-            drawerState.open()
-          }
-
-        }) {
-          Text("Click to open")
-        }
-      }
     }
-  )
 }
