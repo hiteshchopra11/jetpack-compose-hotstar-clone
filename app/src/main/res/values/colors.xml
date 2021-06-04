@@ -16,6 +16,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="drawer_icon">#8F9999</color>
-    <color name="kids_safe">#fff1bf5e</color>
+    <color name="drawer_icon">#FF8F9999</color>
+    <color name="kids_safe">#FFF1bf5e</color>
+    <color name="kids_box">#FF1B1F20</color>
 </resources>
