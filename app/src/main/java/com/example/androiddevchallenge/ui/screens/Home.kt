@@ -15,24 +15,25 @@ import com.example.androiddevchallenge.ui.TopBar
 
 @Composable
 fun Home(openDrawer: () -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        TopBar(
-            title = "Home",
-            leadingButtonIcon= Icons.Filled.Menu,
-            trailingButtonIcon=Icons.Filled.Search,
-            onButtonClicked = { openDrawer() }
-        )
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Home Page content here.")
-        }
+  Column(modifier = Modifier.fillMaxSize()) {
+    TopBar(
+      title = "Home",
+      leadingButtonIcon = Icons.Filled.Menu,
+      trailingButtonIcon = Icons.Filled.Search,
+      onButtonClicked = { openDrawer() }
+    )
+    Column(
+      modifier = Modifier.fillMaxSize(),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+      Text(text = "Home Page content here.")
     }
+  }
 }
 
 @Preview
 @Composable
-fun show(){
-    Home({})
+fun show() {
+  Home({})
 }

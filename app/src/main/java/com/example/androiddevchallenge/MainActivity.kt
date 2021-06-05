@@ -22,79 +22,79 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val context: Context = applicationContext
-        setContent {
-            MyTheme {
-                MyScreenContent(context)
-            }
-        }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    val context: Context = applicationContext
+    setContent {
+      MyTheme {
+        MyScreenContent(context)
+      }
     }
+  }
 }
 
 @Composable
 fun MyScreenContent(context: Context) {
-    Column(modifier = Modifier.fillMaxHeight()) {
-        val navController = rememberNavController()
-        Surface(color = MaterialTheme.colors.background) {
-            val drawerState = rememberDrawerState(DrawerValue.Closed)
-            val scope = rememberCoroutineScope()
-            val openDrawer = {
-                scope.launch {
-                    drawerState.open()
-                }
-            }
-            ModalDrawer(
-                drawerState = drawerState,
-                gesturesEnabled = drawerState.isOpen,
-                drawerContent = {
-                    Drawer(
-                        onDestinationClicked = {
-                            scope.launch {
-                                drawerState.close()
-                            }
-                        }
-                    )
-                }
-            ) {
-                NavHost(
-                    navController = navController,
-                    startDestination = DrawerScreens.Movies.route
-                ) {
-                    composable(DrawerScreens.Downloads.route) {
-                        Home(
-                            openDrawer = {
-                                openDrawer()
-                            }
-                        )
-                    }
-                    composable(DrawerScreens.Watchlist.route) {
-                        Home(
-                            openDrawer = {
-                                openDrawer()
-                            }
-                        )
-                    }
-                    composable(DrawerScreens.Prizes.route) {
-                        Home(
-                            openDrawer = {
-                                openDrawer()
-                            }
-                        )
-                    }
-                }
-            }
+  Column(modifier = Modifier.fillMaxHeight()) {
+    val navController = rememberNavController()
+    Surface(color = MaterialTheme.colors.background) {
+      val drawerState = rememberDrawerState(DrawerValue.Closed)
+      val scope = rememberCoroutineScope()
+      val openDrawer = {
+        scope.launch {
+          drawerState.open()
         }
+      }
+      ModalDrawer(
+        drawerState = drawerState,
+        gesturesEnabled = drawerState.isOpen,
+        drawerContent = {
+          Drawer(
+            onDestinationClicked = {
+              scope.launch {
+                drawerState.close()
+              }
+            }
+          )
+        }
+      ) {
+        NavHost(
+          navController = navController,
+          startDestination = DrawerScreens.Movies.route
+        ) {
+          composable(DrawerScreens.Downloads.route) {
+            Home(
+              openDrawer = {
+                openDrawer()
+              }
+            )
+          }
+          composable(DrawerScreens.Watchlist.route) {
+            Home(
+              openDrawer = {
+                openDrawer()
+              }
+            )
+          }
+          composable(DrawerScreens.Prizes.route) {
+            Home(
+              openDrawer = {
+                openDrawer()
+              }
+            )
+          }
+        }
+      }
     }
+  }
 }
 
 @Preview
 @Composable
 fun Show() {
-    MyTheme {
-        Column(modifier = Modifier.fillMaxHeight()) {
-            MyScreenContent(context = LocalContext.current)
-        }
+  MyTheme {
+    Column(modifier = Modifier.fillMaxHeight()) {
+      MyScreenContent(context = LocalContext.current)
     }
+  }
 }

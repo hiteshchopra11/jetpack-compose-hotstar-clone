@@ -15,41 +15,41 @@ import com.example.androiddevchallenge.ui.theme.drawerItemTitle
 
 @Composable
 fun TopBar(
-    title: String = "",
-    leadingButtonIcon: ImageVector,
-    trailingButtonIcon: ImageVector,
-    onButtonClicked: () -> Unit
+  title: String = "",
+  leadingButtonIcon: ImageVector,
+  trailingButtonIcon: ImageVector,
+  onButtonClicked: () -> Unit
 ) {
-    TopAppBar(
-        title = {
-            Text(
-                text = title,
-                color = drawerItemTitle,
-                style = TextStyle(fontStyle = FontStyle.Normal,fontSize = 16.sp),
-            )
-        },
-        navigationIcon = {
-            IconButton(onClick = { onButtonClicked() }) {
-                Icon(leadingButtonIcon, contentDescription = "", tint = drawerItemTitle)
-            }
-        },
-        actions = {
-            IconButton(onClick = { onButtonClicked() }) {
-                Icon(trailingButtonIcon, contentDescription = "", tint = drawerItemTitle)
-            }
-        },
-        backgroundColor = drawerBackground
-    )
+  TopAppBar(
+    title = {
+      Text(
+        text = title,
+        color = drawerItemTitle,
+        style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 16.sp),
+      )
+    },
+    navigationIcon = {
+      IconButton(onClick = { onButtonClicked() }) {
+        Icon(leadingButtonIcon, contentDescription = "", tint = drawerItemTitle)
+      }
+    },
+    actions = {
+      IconButton(onClick = { onButtonClicked() }) {
+        Icon(trailingButtonIcon, contentDescription = "", tint = drawerItemTitle)
+      }
+    },
+    backgroundColor = drawerBackground
+  )
 }
 
 @Preview
 @Composable
 fun preview() {
-    TopBar(
-        title = "Disney Hotstar",
-        leadingButtonIcon = Icons.Filled.Menu,
-        trailingButtonIcon = Icons.Filled.Search
-    ) {
+  TopBar(
+    title = "Disney Hotstar",
+    leadingButtonIcon = Icons.Filled.Menu,
+    trailingButtonIcon = Icons.Filled.Search
+  ) {
 
-    }
+  }
 }
