@@ -1,6 +1,7 @@
 package com.example.androiddevchallenge.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -8,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -21,16 +21,16 @@ import com.example.androiddevchallenge.ui.theme.drawerBackground
 import com.example.androiddevchallenge.ui.theme.drawerItemSubtitle
 import com.example.androiddevchallenge.ui.theme.drawerItemTitle
 
-sealed class DrawerScreens(val title: String, val icon: Int, val subtitle: String? = null) {
-    object Downloads : DrawerScreens("Downloads", R.drawable.ic_download, "Watch videos offline")
-    object Watchlist : DrawerScreens("Watchlist", R.drawable.ic_watchlist, "Save to watch later")
-    object Prizes : DrawerScreens("Prizes", R.drawable.ic_prizes, "Prizes you have won")
-    object Movies : DrawerScreens("Movies", R.drawable.ic_movies)
-    object Premium : DrawerScreens("Premium", R.drawable.ic_premium)
-    object Trending : DrawerScreens("Trending", R.drawable.ic_trending)
-    object Channels : DrawerScreens("Channels", R.drawable.ic_channels)
-    object Languages : DrawerScreens("Languages", R.drawable.ic_langauges)
-    object Genres : DrawerScreens("Genres", R.drawable.ic_genres)
+sealed class DrawerScreens(val title: String, val icon: Int, val subtitle: String? = null,val route:String) {
+    object Downloads : DrawerScreens("Downloads", R.drawable.ic_download, "Watch videos offline",route = "Home")
+    object Watchlist : DrawerScreens("Watchlist", R.drawable.ic_watchlist, "Save to watch later",route = "Home")
+    object Prizes : DrawerScreens("Prizes", R.drawable.ic_prizes, "Prizes you have won",route = "Home")
+    object Movies : DrawerScreens("Movies", R.drawable.ic_movies,route = "Home")
+    object Premium : DrawerScreens("Premium", R.drawable.ic_premium,route = "Home")
+    object Trending : DrawerScreens("Trending", R.drawable.ic_trending,route = "Home")
+    object Channels : DrawerScreens("Channels", R.drawable.ic_channels,route = "Home")
+    object Languages : DrawerScreens("Languages", R.drawable.ic_langauges,route = "Home")
+    object Genres : DrawerScreens("Genres", R.drawable.ic_genres,route = "Home")
 }
 
 private val screens = listOf(
@@ -47,7 +47,8 @@ private val screens = listOf(
 
 @Composable
 fun Drawer(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDestinationClicked: (route: String) -> Unit
 ) {
     Row {
         Column(
@@ -83,7 +84,7 @@ fun Drawer(
                         tint = Color(0xFFF1bf5e),
                         modifier = Modifier
                             .fillMaxHeight()
-                            .padding(16.dp,16.dp,6.dp,16.dp)
+                            .padding(16.dp, 16.dp, 6.dp, 16.dp)
                     )
                     Text(
                         "Safe",
@@ -95,7 +96,9 @@ fun Drawer(
             }
             screens.forEach { screen ->
                 Spacer(modifier = Modifier.height(24.dp))
-                Row(modifier = Modifier.padding(start = 16.dp)) {
+                Row(modifier = Modifier.padding(start = 16.dp).clickable {
+                    onDestinationClicked("home")
+                }) {
                     if (screen.subtitle == null) {
                         Icon(
                             painterResource(id = screen.icon),
@@ -137,6 +140,6 @@ fun Drawer(
 @Composable
 fun DrawerPreview() {
     MyTheme {
-        Drawer()
+        Drawer(onDestinationClicked = {})
     }
 }

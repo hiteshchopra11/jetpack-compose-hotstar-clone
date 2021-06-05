@@ -18,5 +18,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="drawer_icon">#FF8F9999</color>
     <color name="kids_safe">#FFF1bf5e</color>
-    <color name="kids_box">#FF1B1F20</color>
+    <color name="background">#FF101211</color>
 </resources>
