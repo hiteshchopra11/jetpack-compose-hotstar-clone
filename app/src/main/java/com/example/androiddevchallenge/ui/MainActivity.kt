@@ -1,4 +1,4 @@
-package com.example.androiddevchallenge
+package com.example.androiddevchallenge.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -19,9 +19,13 @@ import com.example.androiddevchallenge.ui.Drawer
 import com.example.androiddevchallenge.ui.DrawerScreens
 import com.example.androiddevchallenge.ui.screens.Home
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+  @ExperimentalPagerApi
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val context: Context = applicationContext
@@ -33,6 +37,7 @@ class MainActivity : AppCompatActivity() {
   }
 }
 
+@ExperimentalPagerApi
 @Composable
 fun MyScreenContent(context: Context) {
   Column(modifier = Modifier.fillMaxHeight()) {
@@ -89,6 +94,7 @@ fun MyScreenContent(context: Context) {
   }
 }
 
+@ExperimentalPagerApi
 @Preview
 @Composable
 fun Show() {
