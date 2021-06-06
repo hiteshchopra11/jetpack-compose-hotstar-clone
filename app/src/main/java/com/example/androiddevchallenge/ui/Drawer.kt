@@ -77,14 +77,14 @@ fun Drawer(
       Text(
         "Hitesh Chopra",
         color = drawerItemTitle,
-        fontSize = 26.sp,
+        fontSize = 24.sp,
         modifier = Modifier.padding(start = 24.dp)
       )
       Spacer(modifier = Modifier.padding(4.dp))
       Text(
         "+91 7009959730",
         color = drawerItemSubtitle,
-        fontSize = 20.sp,
+        fontSize = 18.sp,
         modifier = Modifier.padding(start = 24.dp)
       )
       Spacer(modifier = Modifier.padding(16.dp))

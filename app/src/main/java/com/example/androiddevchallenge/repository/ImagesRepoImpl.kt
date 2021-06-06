@@ -7,12 +7,12 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class ImagesRepoImpl @Inject constructor(private val api: ImagesApi) : ImagesRepo {
-  override suspend fun getLandscapeImages():SafeResult<Landscape>{
-    return try{
+  override suspend fun getLandscapeImages(): SafeResult<Landscape> {
+    try {
       val result = api.fetchLandscapeImages()
-      SafeResult.Success(result)
-    } catch (e:Exception){
-      SafeResult.Failure(exception = e)
+      return SafeResult.Success(result)
+    } catch (e: Exception) {
+      return SafeResult.Failure(exception = e)
     }
   }
 }

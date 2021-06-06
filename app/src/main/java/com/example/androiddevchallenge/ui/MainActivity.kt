@@ -15,9 +15,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.data.remote.ImagesApi
 import com.example.androiddevchallenge.ui.Drawer
 import com.example.androiddevchallenge.ui.DrawerScreens
 import com.example.androiddevchallenge.ui.screens.Home
+import com.example.androiddevchallenge.ui.screens.HomeVM
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
