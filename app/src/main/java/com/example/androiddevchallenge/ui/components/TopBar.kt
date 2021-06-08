@@ -1,7 +1,7 @@
-package com.example.androiddevchallenge.ui
+package com.example.androiddevchallenge.ui.components
 
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -34,7 +34,7 @@ fun TopBar(
       }
     },
     actions = {
-      IconButton(onClick = { onButtonClicked() }) {
+      IconButton(onClick = { }) {
         Icon(trailingButtonIcon, contentDescription = "", tint = drawerItemTitle)
       }
     },
@@ -44,12 +44,10 @@ fun TopBar(
 
 @Preview
 @Composable
-fun preview() {
+fun Preview() {
   TopBar(
     title = "Disney Hotstar",
-    leadingButtonIcon = Icons.Filled.Menu,
-    trailingButtonIcon = Icons.Filled.Search
-  ) {
-
-  }
+    leadingButtonIcon = Filled.Menu,
+    trailingButtonIcon = Filled.Search
+  ) {}
 }

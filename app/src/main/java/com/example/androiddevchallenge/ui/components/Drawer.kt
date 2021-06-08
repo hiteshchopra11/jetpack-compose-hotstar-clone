@@ -1,4 +1,4 @@
-package com.example.androiddevchallenge.ui
+package com.example.androiddevchallenge.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,51 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.R
+import com.example.androiddevchallenge.ui.routes.screens
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.drawerBackground
 import com.example.androiddevchallenge.ui.theme.drawerItemSubtitle
 import com.example.androiddevchallenge.ui.theme.drawerItemTitle
-
-sealed class DrawerScreens(
-  val title: String,
-  val icon: Int,
-  val subtitle: String? = null,
-  val route: String,
-) {
-  object Downloads : DrawerScreens(
-    "Downloads", R.drawable.ic_download, "Watch videos offline",
-    route = "Home"
-  )
-
-  object Watchlist : DrawerScreens(
-    "Watchlist", R.drawable.ic_watchlist, "Save to watch later",
-    route = "Home"
-  )
-
-  object Prizes : DrawerScreens(
-    "Prizes", R.drawable.ic_prizes, "Prizes you have won",
-    route = "Home"
-  )
-
-  object Movies : DrawerScreens("Movies", R.drawable.ic_movies, route = "Home")
-  object Premium : DrawerScreens("Premium", R.drawable.ic_premium, route = "Home")
-  object Trending : DrawerScreens("Trending", R.drawable.ic_trending, route = "Home")
-  object Channels : DrawerScreens("Channels", R.drawable.ic_channels, route = "Home")
-  object Languages : DrawerScreens("Languages", R.drawable.ic_langauges, route = "Home")
-  object Genres : DrawerScreens("Genres", R.drawable.ic_genres, route = "Home")
-}
-
-private val screens = listOf(
-  DrawerScreens.Downloads,
-  DrawerScreens.Watchlist,
-  DrawerScreens.Prizes,
-  DrawerScreens.Movies,
-  DrawerScreens.Premium,
-  DrawerScreens.Trending,
-  DrawerScreens.Channels,
-  DrawerScreens.Languages,
-  DrawerScreens.Genres,
-)
 
 @Composable
 fun Drawer(

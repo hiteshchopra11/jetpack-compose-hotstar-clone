@@ -1,5 +1,5 @@
-package com.example.androiddevchallenge
+package com.example.androiddevchallenge.util
 
-object Constants {
+object AppConstants {
   const val BASE_URL = "https://60bc68d8b8ab37001759f138.mockapi.io/api/v1/"
 }

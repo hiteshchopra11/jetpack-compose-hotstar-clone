@@ -1,6 +1,6 @@
 package com.example.androiddevchallenge.di
 
-import com.example.androiddevchallenge.Constants.BASE_URL
+import com.example.androiddevchallenge.util.AppConstants.BASE_URL
 import com.example.androiddevchallenge.data.remote.ImagesApi
 import com.example.androiddevchallenge.repository.ImagesRepo
 import com.example.androiddevchallenge.repository.ImagesRepoImpl

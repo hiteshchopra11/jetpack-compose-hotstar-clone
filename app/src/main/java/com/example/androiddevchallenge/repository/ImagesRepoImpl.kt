@@ -8,11 +8,11 @@ import javax.inject.Inject
 
 class ImagesRepoImpl @Inject constructor(private val api: ImagesApi) : ImagesRepo {
   override suspend fun getLandscapeImages(): SafeResult<Landscape> {
-    try {
+    return try {
       val result = api.fetchLandscapeImages()
-      return SafeResult.Success(result)
+      SafeResult.Success(result)
     } catch (e: Exception) {
-      return SafeResult.Failure(exception = e)
+      SafeResult.Failure(exception = e)
     }
   }
 }

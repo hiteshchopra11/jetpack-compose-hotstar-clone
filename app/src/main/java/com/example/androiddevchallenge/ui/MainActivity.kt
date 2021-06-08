@@ -1,6 +1,5 @@
 package com.example.androiddevchallenge.ui
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,16 +9,10 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.androiddevchallenge.data.remote.ImagesApi
-import com.example.androiddevchallenge.ui.Drawer
-import com.example.androiddevchallenge.ui.DrawerScreens
-import com.example.androiddevchallenge.ui.screens.Home
-import com.example.androiddevchallenge.ui.screens.HomeVM
+import com.example.androiddevchallenge.ui.components.Drawer
+import com.example.androiddevchallenge.ui.components.NavHostComponent
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,10 +23,9 @@ class MainActivity : AppCompatActivity() {
   @ExperimentalPagerApi
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val context: Context = applicationContext
     setContent {
       MyTheme {
-        MyScreenContent(context)
+        MyScreenContent()
       }
     }
   }
@@ -41,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 @ExperimentalPagerApi
 @Composable
-fun MyScreenContent(context: Context) {
+fun MyScreenContent() {
   Column(modifier = Modifier.fillMaxHeight()) {
     val navController = rememberNavController()
     Surface(color = MaterialTheme.colors.background) {
@@ -63,34 +55,8 @@ fun MyScreenContent(context: Context) {
               }
             }
           )
-        }
-      ) {
-        NavHost(
-          navController = navController,
-          startDestination = DrawerScreens.Movies.route
-        ) {
-          composable(DrawerScreens.Downloads.route) {
-            Home(
-              openDrawer = {
-                openDrawer()
-              }
-            )
-          }
-          composable(DrawerScreens.Watchlist.route) {
-            Home(
-              openDrawer = {
-                openDrawer()
-              }
-            )
-          }
-          composable(DrawerScreens.Prizes.route) {
-            Home(
-              openDrawer = {
-                openDrawer()
-              }
-            )
-          }
-        }
+        }) {
+        NavHostComponent(navController = navController, openDrawer = openDrawer)
       }
     }
   }
@@ -102,7 +68,7 @@ fun MyScreenContent(context: Context) {
 fun Show() {
   MyTheme {
     Column(modifier = Modifier.fillMaxHeight()) {
-      MyScreenContent(context = LocalContext.current)
+      MyScreenContent()
     }
   }
 }
