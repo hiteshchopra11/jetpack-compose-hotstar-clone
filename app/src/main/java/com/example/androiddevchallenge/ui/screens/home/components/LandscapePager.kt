@@ -1,6 +1,7 @@
 package com.example.androiddevchallenge.ui.screens.home.components
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,6 +41,7 @@ fun LandscapePager(state: PagerState, url: List<String>) {
         .aspectRatio(1f)
     ) {
       Box {
+        Log.v("TEST", url[page])
         Image(
           painter = rememberCoilPainter(url[page]),
           contentDescription = null,

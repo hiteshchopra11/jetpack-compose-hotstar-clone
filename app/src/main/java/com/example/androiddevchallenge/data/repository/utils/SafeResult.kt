@@ -1,7 +1,7 @@
-package com.example.androiddevchallenge.repository.utils
+package com.example.androiddevchallenge.data.repository.utils
 
-import com.example.androiddevchallenge.repository.utils.SafeResult.Failure
-import com.example.androiddevchallenge.repository.utils.SafeResult.Success
+import com.example.androiddevchallenge.data.repository.utils.SafeResult.Failure
+import com.example.androiddevchallenge.data.repository.utils.SafeResult.Success
 
 /**
  * A generic class that holds a value with its loading status.
