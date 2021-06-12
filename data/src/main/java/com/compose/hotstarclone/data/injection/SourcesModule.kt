@@ -1,8 +1,9 @@
 package com.compose.hotstarclone.data.injection
 
+import com.compose.hotstarclone.data.remote.LandscapeImagesApi
 import com.compose.hotstarclone.data.remote.PaginatedImagesApi
-import com.compose.hotstarclone.data.repository.ImagesRepo
 import com.compose.hotstarclone.data.sources.ImageRemoteSourceImpl
+import com.compose.hotstarclone.data.sources.LandscapeRemoteSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,5 +18,11 @@ object SourcesModule {
   @Singleton
   fun provideSearchRemoteSource(imagesApi: PaginatedImagesApi): ImageRemoteSourceImpl {
     return ImageRemoteSourceImpl(imagesApi)
+  }
+
+  @Provides
+  @Singleton
+  fun provideLandscapeImageRemoteSource(landscapeImagesApi: LandscapeImagesApi): LandscapeRemoteSourceImpl {
+    return LandscapeRemoteSourceImpl(landscapeImagesApi)
   }
 }

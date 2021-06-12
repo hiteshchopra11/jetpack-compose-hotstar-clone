@@ -3,6 +3,8 @@ package com.compose.hotstarclone.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,13 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.compose.hotstarclone.R
 import com.compose.hotstarclone.ui.routes.screens
-import com.compose.hotstarclone.ui.theme.MyTheme
+import com.compose.hotstarclone.ui.theme.HotstarCloneTheme
 import com.compose.hotstarclone.ui.theme.drawerBackground
 import com.compose.hotstarclone.ui.theme.drawerItemSubtitle
 import com.compose.hotstarclone.ui.theme.drawerItemTitle
 
 @Composable
-fun Drawer(
+fun NavigationDrawer(
   modifier: Modifier = Modifier,
   onDestinationClicked: (route: String) -> Unit,
 ) {
@@ -33,18 +35,19 @@ fun Drawer(
         .background(drawerBackground)
         .fillMaxSize()
         .padding(top = 30.dp)
+        .verticalScroll(rememberScrollState())
     ) {
       Text(
         "Hitesh Chopra",
         color = drawerItemTitle,
-        fontSize = 24.sp,
+        fontSize = 22.sp,
         modifier = Modifier.padding(start = 24.dp)
       )
       Spacer(modifier = Modifier.padding(4.dp))
       Text(
-        "+91 7009959730",
+        "+91 9876543210",
         color = drawerItemSubtitle,
-        fontSize = 18.sp,
+        fontSize = 16.sp,
         modifier = Modifier.padding(start = 24.dp)
       )
       Spacer(modifier = Modifier.padding(16.dp))
@@ -98,13 +101,13 @@ fun Drawer(
             Text(
               text = screen.title,
               color = drawerItemTitle,
-              fontSize = 20.sp
+              fontSize = 18.sp
             )
             screen.subtitle?.let {
               Text(
                 text = it,
                 color = drawerItemSubtitle,
-                fontSize = 16.sp
+                fontSize = 14.sp
               )
             }
           }
@@ -118,7 +121,7 @@ fun Drawer(
 @Preview
 @Composable
 fun DrawerPreview() {
-  MyTheme {
-    Drawer(onDestinationClicked = {})
+  HotstarCloneTheme {
+    NavigationDrawer(onDestinationClicked = {})
   }
 }

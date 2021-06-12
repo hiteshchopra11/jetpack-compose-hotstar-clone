@@ -5,7 +5,7 @@ import com.compose.hotstarclone.data.remote.model.ImageResponse
 
 interface ImageRemoteSource {
   companion object {
-    const val PAGE_SIZE_DEFAULT = 20
+    const val PAGE_SIZE_DEFAULT = 5
   }
 
   suspend fun getAllImagesByQuery(

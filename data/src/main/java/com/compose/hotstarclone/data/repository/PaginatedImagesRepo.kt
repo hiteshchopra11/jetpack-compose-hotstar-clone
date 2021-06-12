@@ -9,11 +9,11 @@ import com.compose.hotstarclone.data.sources.ImagePagerSource
 import com.compose.hotstarclone.data.sources.ImageRemoteSource
 import kotlinx.coroutines.flow.Flow
 
-class ImagesRepo(private val imageRemoteSource: ImageRemoteSource) {
+class PaginatedImagesRepo(private val imageRemoteSource: ImageRemoteSource) {
 
   fun getImages(imageParamsRequest: ImageParamsRequest): Flow<PagingData<Photo>> {
     return Pager(
-      PagingConfig(pageSize = 20)
+      PagingConfig(pageSize = 5)
     ) {
       ImagePagerSource(imageRemoteSource, imageParamsRequest)
     }.flow

@@ -1,6 +1,8 @@
 package com.compose.hotstarclone.domain.injection
 
-import com.compose.hotstarclone.data.repository.ImagesRepo
+import com.compose.hotstarclone.data.repository.LandscapeImagesRepo
+import com.compose.hotstarclone.data.repository.PaginatedImagesRepo
+import com.compose.hotstarclone.domain.usecase.GetLandscapeImagesUseCase
 import com.compose.hotstarclone.domain.usecase.GetPaginatedImagesUseCase
 import dagger.Module
 import dagger.Provides
@@ -14,7 +16,13 @@ object UseCaseModule {
 
   @Provides
   @Singleton
-  fun provideGetAllContents(imagesRepo: ImagesRepo): GetPaginatedImagesUseCase {
-    return GetPaginatedImagesUseCase(imagesRepo)
+  fun provideGetAllContents(paginatedImagesRepo: PaginatedImagesRepo): GetPaginatedImagesUseCase {
+    return GetPaginatedImagesUseCase(paginatedImagesRepo)
+  }
+
+  @Provides
+  @Singleton
+  fun provideGetLandscapeImages(landscapeImagesRepo: LandscapeImagesRepo): GetLandscapeImagesUseCase {
+    return GetLandscapeImagesUseCase(landscapeImagesRepo)
   }
 }

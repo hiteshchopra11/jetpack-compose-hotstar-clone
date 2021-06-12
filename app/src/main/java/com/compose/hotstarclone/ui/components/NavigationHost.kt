@@ -11,7 +11,7 @@ import kotlinx.coroutines.Job
 
 @ExperimentalPagerApi
 @Composable
-fun NavHostComponent(navController: NavHostController, openDrawer: () -> Job) {
+fun NavigationHost(navController: NavHostController, openDrawer: () -> Job) {
   NavHost(
     navController = navController,
     startDestination = DrawerScreensRoutes.Movies.route
@@ -20,21 +20,21 @@ fun NavHostComponent(navController: NavHostController, openDrawer: () -> Job) {
       Home(
         openDrawer = {
           openDrawer()
-        }
+        }, navController = navController
       )
     }
     composable(DrawerScreensRoutes.Watchlist.route) {
       Home(
         openDrawer = {
           openDrawer()
-        }
+        }, navController = navController
       )
     }
     composable(DrawerScreensRoutes.Prizes.route) {
       Home(
         openDrawer = {
           openDrawer()
-        }
+        }, navController = navController
       )
     }
   }

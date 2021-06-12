@@ -2,7 +2,6 @@ package com.compose.hotstarclone.data.sources
 
 import com.compose.hotstarclone.data.SafeResult
 import com.compose.hotstarclone.data.remote.PaginatedImagesApi
-
 import com.compose.hotstarclone.data.remote.model.ImageResponse
 import com.compose.hotstarclone.data.remote.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher

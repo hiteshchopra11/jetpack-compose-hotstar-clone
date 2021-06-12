@@ -1,196 +1,83 @@
 package com.compose.hotstarclone.ui.screens.home
 
-import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons.Filled
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
+import androidx.navigation.NavController
 import com.compose.hotstarclone.R.font
-import com.compose.hotstarclone.data.remote.model.Photo
-import com.compose.hotstarclone.ui.components.TopBar
-import com.compose.hotstarclone.ui.screens.home.ImageState.Loading
-import com.compose.hotstarclone.ui.screens.home.ImageState.NetworkError
-import com.compose.hotstarclone.ui.screens.home.ImageState.Success
-import com.compose.hotstarclone.ui.screens.home.components.LandscapePager
+import com.compose.hotstarclone.ui.routes.bottomNavigationScreens
+import com.compose.hotstarclone.ui.screens.home.components.BottomNavigationBar
+import com.compose.hotstarclone.ui.screens.home.components.HorizontalPagerData
+import com.compose.hotstarclone.ui.screens.home.components.PaginatedImages
+import com.compose.hotstarclone.ui.screens.home.components.TopAppToolbar
 import com.compose.hotstarclone.ui.theme.drawerBackground
 import com.compose.hotstarclone.ui.theme.drawerItemTitle
-import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @ExperimentalPagerApi
 @Composable
-fun Home(openDrawer: () -> Unit, viewModel: HomeVM = hiltViewModel()) {
+fun Home(
+  openDrawer: () -> Unit,
+  navController: NavController
+) {
+  Scaffold(modifier = Modifier
+    .fillMaxSize()
+    .background(drawerBackground), scaffoldState = rememberScaffoldState(),
+    topBar = { TopAppToolbar(openDrawer) },
+    content = { HomeScreenContent() },
+    bottomBar = {
+      BottomNavigationBar(
+        screens = bottomNavigationScreens,
+        navController = navController
+      )
+    })
+}
 
+@Composable
+fun HomeScreenContent(viewModel: HomeVM = hiltViewModel()) {
   Column(
     modifier = Modifier
       .fillMaxSize()
       .background(drawerBackground)
       .verticalScroll(rememberScrollState())
   ) {
-    TopBar(
-      title = "Disney Hotstar",
-      leadingButtonIcon = Filled.Menu,
-      trailingButtonIcon = Filled.Search,
-      onButtonClicked = { openDrawer() }
-    )
-    HorizontalPagerWithOffsetTransition()
-    Text(
-      text = "Latest and Trending",
-      modifier = Modifier.padding(12.dp),
-      color = drawerItemTitle,
-      fontFamily = FontFamily(
-        Font(font.istok_bold)
-      ), fontSize = 20.sp
-    )
-    val list = arrayListOf<String>()
-    when (val state = viewModel.trendingMutableState.value) {
-      is ImageState.Error -> TODO()
-      Loading -> {
-
-      }
-      NetworkError -> {
-
-      }
-      is Success -> {
-        list.addAll(state.urls)
-        LazyRow(
-          modifier = Modifier
-            .padding(12.dp)
-            .height(300.dp)
-        ) {
-          items(
-            list.size,
-            itemContent = { item ->
-              Card(
-                modifier = Modifier
-                  .height(250.dp)
-                  .background(drawerBackground)
-                  .padding(4.dp)
-                  .width(250.dp)
-                  .aspectRatio(1f)
-              ) {
-                Image(
-                  painter = rememberCoilPainter(list[item]),
-                  contentDescription = null,
-                  modifier = Modifier.fillMaxSize(),
-                  contentScale = ContentScale.Crop
-                )
-              }
-            }
-          )
-        }
-      }
-    }
+    HorizontalPagerData(viewModel = viewModel)
+    ImageTitleText(text = "Latest and Trending")
+    PaginatedImages(items = viewModel.getPaginatedImages("Popular"))
+    ImageTitleText(text = "Sports")
+    PaginatedImages(items = viewModel.getPaginatedImages("Sports"))
+    ImageTitleText(text = "Popular in Movies")
+    PaginatedImages(items = viewModel.getPaginatedImages("Movies"))
+    ImageTitleText(text = "Popular in Cricket")
+    PaginatedImages(items = viewModel.getPaginatedImages("Cricket"))
+    ImageTitleText(text = "Popular in Mythology")
+    PaginatedImages(items = viewModel.getPaginatedImages("Mythology"))
+    Spacer(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 64.dp))
   }
 }
 
-@SuppressLint("RestrictedApi")
-@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun HorizontalPagerWithOffsetTransition(viewModel: HomeVM = hiltViewModel()) {
-
-  val lazyPhotoItems = viewModel.photos.collectAsLazyPagingItems()
-  val pagerState = rememberPagerState(
-    pageCount = 6,
-    // We increase the offscreen limit, to allow pre-loading of images
-    initialOffscreenLimit = 2,
+private fun ImageTitleText(text: String) {
+  Text(
+    text = text,
+    modifier = Modifier.padding(16.dp, 12.dp),
+    color = drawerItemTitle,
+    fontFamily = FontFamily(
+      Font(font.roboto_regular)
+    ), fontSize = 20.sp
   )
-  LazyRow {
-    var count = 0;
-    items(lazyPhotoItems) { item ->
-      Image(
-        painter = rememberCoilPainter(item!!.src.original),
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-      )
-      count++;
-      Log.e("TEST", count.toString())
-    }
-  }
-
-//  when (val value = viewModel.landscapeMutableState.value) {
-//    is Error -> {
-//      Column(
-//        Modifier
-//          .height(200.dp)
-//          .fillMaxWidth(),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//      ) {
-//        value.message?.let { Text(text = it, color = Color.White) }
-//      }
-//    }
-//    Loading -> {
-//      Column(
-//        Modifier
-//          .height(200.dp)
-//          .fillMaxWidth(),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//      ) {
-//        CircularProgressIndicator(
-//          color = Color.White
-//        )
-//      }
-//    }
-//    NetworkError -> {
-//      Column(
-//        Modifier
-//          .height(200.dp)
-//          .fillMaxWidth(),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//      ) {
-//        Text(text = "Network Error Occurred", color = Color.White)
-//      }
-//    }
-//    is Success -> {
-//      LandscapePager(state = pagerState, url = value.urls)
-//    }
-//  }
-
-}
-
-@ExperimentalPagerApi
-@Preview
-@Composable
-fun show() {
-  Home(openDrawer = {})
 }

@@ -17,21 +17,21 @@ class ImagePagerSource(
   override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
     return try {
       // Start refresh at page 1 if undefined.
-      val nextPageNumber = params.key ?: 1
+      val page = params.key ?: 1
       when (val result =
         imageRemoteSource.getAllImagesByQuery(
           imagesParamsRequest.query,
           imagesParamsRequest.orientation,
           ImageRemoteSource.PAGE_SIZE_DEFAULT,
-          nextPageNumber
+          page
         )
       ) {
         is Success -> {
           val paginatedContent = result.getSuccessOrNull() ?: return LoadResult.Error(Exception())
           LoadResult.Page(
             data = paginatedContent.photos,
-            prevKey = null,
-            nextKey = null
+            prevKey = if (page == 1) null else page - 1,
+            nextKey = page + 1
           )
         }
         is NetworkError -> {
