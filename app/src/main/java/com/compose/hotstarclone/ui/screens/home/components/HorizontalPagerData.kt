@@ -18,6 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.compose.hotstarclone.ui.components.DisplayError
@@ -32,7 +33,10 @@ import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.material.animation.AnimationUtils.lerp
+import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @SuppressLint("RestrictedApi")
@@ -80,8 +84,24 @@ private fun LandscapePager(state: PagerState, url: List<String>) {
       modifier = Modifier
         .height(200.dp)
         .background(drawerBackground)
-        .padding(4.dp)
-        .fillMaxWidth(0.95f)
+        .padding(2.dp)
+        .graphicsLayer {
+          val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+          lerp(
+            0.95f,
+            1f,
+            1f - pageOffset.coerceIn(0f, 1f)
+          ).also { scale ->
+            scaleX = scale
+            scaleY = scale
+          }
+          alpha = lerp(
+            0.5f,
+            1f,
+            1f - pageOffset.coerceIn(0f, 1f)
+          )
+        }
+        .fillMaxWidth(0.90f)
         .aspectRatio(1f)
     ) {
       Image(

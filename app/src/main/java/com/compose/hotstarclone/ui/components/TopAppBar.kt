@@ -1,4 +1,4 @@
-package com.compose.hotstarclone.ui.screens.home.components
+package com.compose.hotstarclone.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
@@ -15,9 +15,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.compose.hotstarclone.R.drawable
 import com.compose.hotstarclone.ui.theme.drawerBackground
+import kotlinx.coroutines.Job
 
 @Composable
-fun TopAppToolbar(openDrawer: () -> Unit) {
+fun TopAppToolbar(openDrawer: () -> Job) {
   TopAppBar(
     title = {
       Icon(

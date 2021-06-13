@@ -1,4 +1,4 @@
-package com.compose.hotstarclone.ui.screens.home.components
+package com.compose.hotstarclone.ui.components
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.compose.hotstarclone.ui.routes.BottomNavigationRoutes
+import com.compose.hotstarclone.ui.routes.AppRoutes.BottomNavigationRoutes
 import com.compose.hotstarclone.ui.theme.drawerBackground
 
 @Composable
@@ -34,7 +34,7 @@ fun BottomNavigationBar(
         modifier = Modifier.align(Alignment.CenterVertically),
         icon = {
           Icon(
-            painterResource(id = screen.icon),
+            painterResource(id = screen.icon!!),
             modifier = Modifier.align(Alignment.CenterVertically),
             contentDescription = screen.title
           )
