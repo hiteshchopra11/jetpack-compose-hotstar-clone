@@ -20,6 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.compose.hotstarclone.ui.components.DisplayError
+import com.compose.hotstarclone.ui.components.LoadingItem
+import com.compose.hotstarclone.ui.components.LoadingView
 import com.compose.hotstarclone.ui.screens.home.HomeVM
 import com.compose.hotstarclone.ui.screens.home.ImageState.Loading
 import com.compose.hotstarclone.ui.screens.home.ImageState.NetworkError
@@ -47,7 +50,11 @@ fun HorizontalPagerData(viewModel: HomeVM) {
       DisplayError(error = value)
     }
     Loading -> {
-      DisplayLoading()
+      LoadingView(
+        modifier = Modifier
+          .height(200.dp)
+          .fillMaxWidth(),
+      )
     }
     NetworkError -> {
       DisplayError(message = "Network Error Occurred")
@@ -84,33 +91,5 @@ private fun LandscapePager(state: PagerState, url: List<String>) {
         contentScale = ContentScale.Crop
       )
     }
-  }
-}
-
-@Composable
-private fun DisplayLoading() {
-  Column(
-    Modifier
-      .height(200.dp)
-      .fillMaxWidth(),
-    verticalArrangement = Arrangement.Center,
-    horizontalAlignment = Alignment.CenterHorizontally
-  ) {
-    CircularProgressIndicator(
-      color = Color.White
-    )
-  }
-}
-
-@Composable
-private fun DisplayError(error: Error? = null, message: String? = null) {
-  Column(
-    Modifier
-      .height(200.dp)
-      .fillMaxWidth(),
-    verticalArrangement = Arrangement.Center,
-    horizontalAlignment = Alignment.CenterHorizontally
-  ) {
-    error?.message ?: message?.let { Text(text = it) }
   }
 }
