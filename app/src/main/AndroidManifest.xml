@@ -16,7 +16,7 @@
   <application
     android:name=".HotstarCloneApplication"
     android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@drawable/ic_hotstar"
     android:label="@string/app_name"
     android:supportsRtl="true"
     android:theme="@style/Theme.AndroidDevChallenge">
