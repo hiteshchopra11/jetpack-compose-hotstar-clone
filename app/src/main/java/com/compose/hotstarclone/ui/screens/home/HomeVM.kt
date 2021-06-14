@@ -24,7 +24,8 @@ class HomeVM @Inject constructor(
   private val getLandScapeImagesUseCase: GetLandscapeImagesUseCase
 ) : ViewModel() {
 
-  val landscapeMutableState = mutableStateOf<ImageState>(Loading)
+  var landscapeMutableState = mutableStateOf<ImageState>(Loading)
+  private set
 
   fun getPaginatedImages(query: String): Flow<PagingData<Photo>> {
     return getPaginatedImagesUseCase.perform(ImageParamsRequest(query, "portrait"))

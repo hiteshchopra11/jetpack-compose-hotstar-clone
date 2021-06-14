@@ -14,21 +14,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.compose.hotstarclone.R
 import com.compose.hotstarclone.ui.routes.drawerScreens
-import com.compose.hotstarclone.ui.theme.HotstarCloneTheme
 import com.compose.hotstarclone.ui.theme.drawerBackground
 import com.compose.hotstarclone.ui.theme.drawerItemSubtitle
 import com.compose.hotstarclone.ui.theme.drawerItemTitle
+import kotlinx.coroutines.Job
 
 @Composable
 fun NavigationDrawer(
   modifier: Modifier = Modifier,
-  onDestinationClicked: (route: String) -> Unit,
+  closeDrawer: (route: String) -> Job,
+  onDestinationClicked: (route: String) -> Unit
 ) {
   Column(
     modifier
@@ -45,6 +44,7 @@ fun NavigationDrawer(
       Row(modifier = Modifier
         .padding(start = 16.dp)
         .clickable {
+          closeDrawer(screen.route)
           onDestinationClicked(screen.route)
         }) {
         if (screen.subtitle == null) {
