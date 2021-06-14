@@ -1,2 +1,4 @@
-rootProject.name = "AndroidDevChallenge"
+rootProject.name = "Hotstar Clone"
 include ':app'
+include ':data'
+include ':domain'
